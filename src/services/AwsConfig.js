@@ -1,0 +1,8 @@
+const { REACT_APP_BUCKET_NAME, REACT_APP_REGION, REACT_APP_SECRET_ACCESS_KEY, REACT_APP_ACCESS_KEY_ID } = process.env
+
+export const AwsConfig = {
+  bucketName: REACT_APP_BUCKET_NAME,
+  region: REACT_APP_REGION,
+  accessKeyId: REACT_APP_ACCESS_KEY_ID,
+  secretAccessKey: REACT_APP_SECRET_ACCESS_KEY
+}
