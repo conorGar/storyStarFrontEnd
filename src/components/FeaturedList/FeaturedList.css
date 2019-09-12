@@ -1,0 +1,9 @@
+
+.featuredlist-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 30px;
+    background-color: aqua;
+}

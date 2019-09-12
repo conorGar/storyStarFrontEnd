@@ -1,0 +1,24 @@
+
+
+.navbar-container{
+    display: flex;
+    justify-content: space-around;
+    background-color: red;
+    padding: 20px 0px;
+}
+
+.left-navbar-container{
+    display: flex;
+    flex-direction: row;
+    background-color: azure;
+    justify-content: space-around;
+    width: 50%;
+}
+
+.right-navbar-container{
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: flex-end;
+    padding: 0 30px;
+}

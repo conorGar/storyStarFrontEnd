@@ -1,6 +1,8 @@
 import React from 'react'
+import NavBar from '../../components/NavBar/NavBar'
+import FeaturedList from '../../components/FeaturedList/FeaturedList'
 
-class HomePage extends React.Component(){
+class HomePage extends React.Component{
     constructor(props) {
         super(props)
     
@@ -14,7 +16,8 @@ class HomePage extends React.Component(){
     render(){
         return(
             <div className="homepage-container">
-
+                <NavBar />
+                <FeaturedList />
             </div>
         )
     }
