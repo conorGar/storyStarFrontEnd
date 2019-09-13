@@ -1,7 +1,11 @@
 import React from 'react';
 import HomePage from './screens/HomePage/HomePage'
 import Dashboard from './screens/Dashboard/Dashboard'
+import StoryDashboard from './screens/StoryDashboard/StoryDashboard'
+import ChapterPage from './screens/ChapterPage/ChapterPage'
+import EditStory from './screens/EditStory/EditStory'
 import { Route, Link, Redirect } from 'react-router-dom'
+import UploadStory from './screens/UploadStory/UploadStory'
 import SignUpForm from './screens/SignUpForm/SignUpForm'
 import LoginForm from './screens/LoginForm/LoginForm'
 import { login, signUp, getProfile } from './services/apiService'
@@ -97,6 +101,32 @@ class App extends React.Component {
             exact
             path="/dashboard/:id"
             render={props => <Dashboard {...props}/>}
+          />
+
+
+          <Route
+            exact
+            path="/story/:id"
+            render={props => <StoryDashboard {...props}/>}
+          />
+
+          <Route
+            exact
+            path="/chapter/story/:id"
+            render={props => <ChapterPage {...props}/>}
+          />
+          <Route
+            exact
+            path="/story/upload/user/:id"
+            component={UploadStory}
+          />
+          <Route
+            exact
+            path="/story/update/:id"
+            render={props => (
+              <EditStory {...props} isSignedIn={isSignedIn} />
+            )}
+
           />
 
 

@@ -10,7 +10,7 @@ class StoryDashboard extends React.Component{
     constructor(props) {
         super(props);
         this.state = {
-            title: '',
+            name: '',
             image: null,
             description: '',
             user: '',
@@ -20,24 +20,43 @@ class StoryDashboard extends React.Component{
     }
 
     componentDidMount = () => {
-        this.getName()
+        // this.getName()
         document
             .getElementsByTagName("HTML")[0]
             .setAttribute("data-theme", localStorage.getItem("theme"));
+        this.fetchStoryInfo()
+
     }
 
 
-    getName = async () => {
+     
+    fetchStoryInfo = async () => {
         let id = this.props.match.params.id
-        let chapterid = await apiCall.get(`/chapter/${id}`)
+        const response = await apiCall.get(`/story/${id}`)
+        // const {
+        //   data: {
+        //     story: { name, image, description, user, chapters }
+        //   }
+        // } = response
         this.setState({
-            title: chapterid.data.name,
-            image: chapterid.data.imgUrl,
-            description: chapterid.data.description,
-            user: chapterid.data.userId,
+          name: response.data.name,
+          image: response.data.image,
+          description: response.data.description,
+          user: response.data.user,
+          chapters: response.data.chapters
         })
-        console.log()
-    }
+      }
+
+
+    // getName = async () => {
+    //     let id = this.props.match.params.id
+    //     let storyid = await apiCall.get(`/story/${id}`)
+    //     this.setState({
+    //         name: storyid.data.name,
+    //         description: storyid.data.description,
+    //     })
+    //     console.log()
+    // }
 
     renderChapters = () => {
         const { chapters } = this.state
@@ -50,7 +69,7 @@ class StoryDashboard extends React.Component{
                 <h3>{chapter.name}</h3>
                 <button onClick={() => this.deletechapter(chapter.id)}>Delete</button>
               </div>
-              <Link to={`/chapter/${chapter.id}`}>
+              <Link to={`/chapter/story/${chapter.id}`}>
                 <img
                   src={chapter.imgUrl}
                   alt="ProjPic"

@@ -45,7 +45,7 @@ class Dashboard extends React.Component{
           return (
             <div key={project.id} className="user-project">
               <div className='project-header'>
-                {/* <Link to={`/story/update/${project.id}`}><button>Edit</button></Link> */}
+                <Link to={`/story/update/${project.id}`}><button>Edit</button></Link>
                 <h3>{project.name}</h3>
                 <button onClick={() => this.deleteProject(project.id)}>Delete</button>
               </div>
@@ -69,7 +69,7 @@ class Dashboard extends React.Component{
             <div>
                 <h1>Dashboard</h1>
                     <Link
-                    to={`/project/upload/user/${localStorage.getItem('userId')}`}
+                    to={`/story/upload/user/${localStorage.getItem('userId')}`}
                     className="links"
                     >
                     <div>Upload Story</div>

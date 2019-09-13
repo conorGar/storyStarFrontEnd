@@ -1,7 +1,7 @@
 import React from 'react'
-import { apiCall } from '../../../services/apiService'
+import { apiCall } from '../../services/apiService'
 import S3FileUpload from 'react-s3';
-import { AwsConfig } from '../../../services/AwsConfig'
+import { AwsConfig } from '../../services/AwsConfig'
 
 import './UploadStory.css'
 
@@ -31,11 +31,11 @@ class UploadStory extends React.Component {
 
     handleProjectSubmit = async (e) => {
         e.preventDefault();
-        const { name, description, skills, username, imgUrl, link } = this.state
+        const { name, description, username, imgUrl } = this.state
         const id = this.props.match.params.id;
         console.log("Handle project submit activate")
         try {
-            await apiCall.post(`story/create/user/${id}`, { name, description, skills, imgUrl, username, link })
+            await apiCall.post(`story/create/user/${id}`, { name, description, imgUrl, username })
             await this.props.history.push('/')
         }
         catch (error) {
@@ -86,16 +86,7 @@ class UploadStory extends React.Component {
                                 />
                             </div>
                         
-                            <div className="input-container">
-                                <label htmlFor='username'>Other Users</label>
-                                <input
-                                    type='text'
-                                    name='username'
-                                    onChange={this.handleTextInput}
-                                    value={this.state.username}
-                                    placeholder="Example: dgrosh123, jkim3360, etc."
-                                />
-                            </div>
+                        
                         </div>
                         <button className="submit-button">Submit</button>
                     </form>
