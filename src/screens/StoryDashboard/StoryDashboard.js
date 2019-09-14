@@ -86,11 +86,16 @@ class StoryDashboard extends React.Component{
 
     render(){
         const { title, image, description, user } = this.state
-
+        let id = this.props.match.params.id
         return(
             <div>
                 <h1>{this.state.name}</h1>
+                <Link
+                    to={`/chapter/story/upload/${id}`}
+                    className="links"
+                    >
                 <div>Upload New Chapter</div>
+                </Link>
 
                 {/* put given chapters here */}
                 <h1 className="story-title">{title}</h1>

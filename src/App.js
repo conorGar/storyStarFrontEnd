@@ -12,6 +12,7 @@ import { login, signUp, getProfile } from './services/apiService'
 import NavBar from './components/NavBar/NavBar'
 
 import './App.css';
+import UploadChapter from './screens/UploadChapter/UploadChapter';
 
 class App extends React.Component {
 
@@ -114,6 +115,11 @@ class App extends React.Component {
             exact
             path="/chapter/story/:id"
             render={props => <ChapterPage {...props}/>}
+          />
+          <Route
+            exact
+            path="/chapter/story/upload/:id"
+            component={UploadChapter}
           />
           <Route
             exact

@@ -35,7 +35,7 @@ class ChapterPage extends React.Component{
 
     renderPages = () => {
         const { contents } = this.state
-        console.log(this.state.chapters)
+        console.log(this.state.contents )
         return contents.map(content => {
           return (
             <div key={content.id} className="content-page">
