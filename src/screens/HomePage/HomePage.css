@@ -1,0 +1,15 @@
+.homepage-container{
+    background-color: rgb(208, 245, 255);
+}
+
+
+.featuredlist-container{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 90px 30px;
+    background-color: rgb(231, 249, 255);
+    margin-top: 50px;
+    z-index: 5;
+}

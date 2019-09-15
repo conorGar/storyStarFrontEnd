@@ -1,0 +1,26 @@
+
+
+
+.homepage-banner-container{
+    background-color: rgb(255, 255, 255);
+    width: 100vw;
+    height: 60vh;
+    border-bottom-left-radius: 190px;
+    border-bottom-right-radius: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+
+}
+
+.starman-image{
+    /* display: inline; */
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 35%;
+    left:2%;
+    /* background-color: red; */
+    z-index: 3;
+}

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-
+import SiteLogo from '../../assets/story_star_icon.png'
 
 import './NavBar.css'
 

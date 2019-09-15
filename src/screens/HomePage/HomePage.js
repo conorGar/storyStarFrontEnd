@@ -1,15 +1,17 @@
 import React from 'react'
 import FeaturedList from '../../components/FeaturedList/FeaturedList'
 import StoryIcon from '../../components/StoryIcon/StoryIcon'
-import { apiCall } from '../../services/apiService'
+import HomepageBanner from '../../components/HomepageBanner/HomepageBanner'
 
+import { apiCall } from '../../services/apiService'
+import './HomePage.css'
+import FeaturedCarousel from '../../components/FeaturedCarousel/FeaturedCarousel';
 class HomePage extends React.Component{
     constructor(props) {
         super(props)
     
         this.state = {
           displayedStories: [],
-          projectImages: null,
           usernames: [],
      
         }
@@ -36,7 +38,6 @@ class HomePage extends React.Component{
   
         this.setState({
           displayedStories: stories.data,
-          projectImages: images,
         })
       }
 
@@ -53,7 +54,7 @@ class HomePage extends React.Component{
                 key={project.id}
                 title={project.name}
                 image={project.imgUrl}
-                link={`/project/${project.id}`}
+                link={`/story/${project.id}`}
                 description={project.description}
 
             />
@@ -66,8 +67,12 @@ class HomePage extends React.Component{
 
         return(
             <div className="homepage-container">
-              
-                <FeaturedList />
+                <HomepageBanner />
+                <h1>Featured</h1>
+
+                <div className = 'featuredlist-container'>
+                {this.createIcons()}
+                </div>
              
             </div>
         )
