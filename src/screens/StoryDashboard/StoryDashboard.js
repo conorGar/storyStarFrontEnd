@@ -40,7 +40,7 @@ class StoryDashboard extends React.Component{
         // } = response
         this.setState({
           name: response.data.name,
-          image: response.data.image,
+          image: response.data.imgUrl,
           description: response.data.description,
           user: response.data.user,
           chapters: response.data.chapters
@@ -61,21 +61,31 @@ class StoryDashboard extends React.Component{
     renderChapters = () => {
         const { chapters } = this.state
         console.log(this.state.chapters)
+        let chapterRowColor = 'user-chapter-white'
         return chapters.map(chapter => {
+          if(chapterRowColor==='user-chapter-white'){
+            chapterRowColor = 'user-chapter-grey'
+          }else{
+            chapterRowColor = 'user-chapter-white'
+          }
           return (
-            <div key={chapter.id} className="user-chapter">
-              <div className='chapter-header'>
-                <Link to={`/chapter/update/${chapter.id}`}><button>Edit</button></Link>
-                <h3>{chapter.name}</h3>
-                <button onClick={() => this.deletechapter(chapter.id)}>Delete</button>
-              </div>
-              <Link to={`/chapter/story/${chapter.id}`}>
+            <div key={chapter.id} className={chapterRowColor}>
+              <div className="chapter-row-left">
+                <Link to={`/chapter/story/${chapter.id}`} className='chapter-link'>
                 <img
                   src={chapter.imgUrl}
                   alt="ProjPic"
                   className="profile-chapter-pic"
                 />
+                 <h3 className="chapter-name">{chapter.name}</h3>
               </Link>
+             
+              </div>
+              <div className='chapter-header'>
+                <Link to={`/chapter/update/${chapter.id}`}><button className='chapter-button'>Edit</button></Link>
+                <button className='chapter-button' onClick={() => this.deletechapter(chapter.id)}>Delete</button>
+              </div>
+            
             </div>
           )
         })
@@ -85,23 +95,25 @@ class StoryDashboard extends React.Component{
 
 
     render(){
-        const { title, image, description, user } = this.state
+        const { image, description, user } = this.state
         let id = this.props.match.params.id
         return(
             <div>
-                <h1>{this.state.name}</h1>
-                <Link
-                    to={`/chapter/story/upload/${id}`}
-                    className="links"
-                    >
-                <div>Upload New Chapter</div>
-                </Link>
+                <div className='story-banner'>
+                  <h1 className='story-title'>{this.state.name}</h1>
+                 
 
-                {/* put given chapters here */}
-                <h1 className="story-title">{title}</h1>
-
-                <img src={image} alt="ProjPic" className="chapter-pic" />
-
+                  <div className='story-image-banner'>
+                  <img src={image} alt="ProjPic" className="story-pic" />
+                  </div>
+                  <h4 className='story-description'>{description}</h4>
+                  <Link
+                      to={`/chapter/story/upload/${id}`}
+                      className="links"
+                      >
+                  <div>Upload New Chapter</div>
+                  </Link>
+                </div>
                 <div className="story-chapter-list">
                     {this.renderChapters()}
                 </div>

@@ -6,7 +6,7 @@ import './HomepageBanner.css'
 function HomepageBanner(){
     return(
         <div className= 'homepage-banner-container'>
-            <div>
+            <div className= 'homepage-featured-container'>
             <FeaturedCarousel />
             <img className="starman-image" alt="star man" src={StarMan}/>
             </div>

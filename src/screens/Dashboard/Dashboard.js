@@ -44,17 +44,20 @@ class Dashboard extends React.Component{
         return stories.map(project => {
           return (
             <div key={project.id} className="user-project">
-              <div className='project-header'>
-                <Link to={`/story/update/${project.id}`}><button>Edit</button></Link>
-                <h3>{project.name}</h3>
-                <button onClick={() => this.deleteProject(project.id)}>Delete</button>
-              </div>
+              
               <Link to={`/story/${project.id}`}>
                 <img
                   src={project.imgUrl}
                   alt="ProjPic"
                   className="profile-project-pic"
                 />
+                <h3 className='story-name'>{project.name}</h3>
+                <h5 className='story-des'>{project.description}</h5>
+                <div className='project-header'>
+                <Link to={`/story/update/${project.id}`}><button>Edit</button></Link>
+                <button onClick={() => this.deleteProject(project.id)}>Delete</button>
+              </div>
+
               </Link>
             </div>
           )
@@ -72,7 +75,7 @@ class Dashboard extends React.Component{
                     to={`/story/upload/user/${localStorage.getItem('userId')}`}
                     className="links"
                     >
-                    <div>Upload Story</div>
+                    <div>+ New Story</div>
                 </Link>
                 
                 <div className="pro-proj-container">
@@ -82,10 +85,10 @@ class Dashboard extends React.Component{
                         <img className="profile-image" src={this.state.imgUrl} alt='profile-pic' />
                         </div>
                         <div className='profile-right'>
-                        <h1 className="prof-name">{name}</h1>
-                        <h2 className="prof-username">{username}</h2>
-                        <h3 className="prof-email">{email}</h3>
-                        <Link to={`/users/edit/${this.props.match.params.id}`}>Edit Profile</Link>
+                          <h1 className="prof-name">{name}</h1>
+                          <h2 className="prof-username">{username}</h2>
+                          <h3 className="prof-email">{email}</h3>
+                          <Link to={`/users/edit/${this.props.match.params.id}`}>Edit Profile</Link>
                         </div>
                     </div>
 

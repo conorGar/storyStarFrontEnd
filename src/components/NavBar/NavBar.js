@@ -14,20 +14,26 @@ class NavBar extends React.Component{
 
     render(){
         return(
+
             <div className='navbar-container'>
+                <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet"></link>
                 <div className = 'left-navbar-container'>
+                    <img className='site-logo' src={SiteLogo} />
                     <Link to='/latest'>
                     <div>Latest</div>
                     </Link>
                     <div>Random</div>
                     <div>About</div>
                 </div>
-                <div className="right-navbar-container">                      
+                <div className="right-navbar-container">       
+                    <div className="how-text">How It Works |</div>               
                     <div>
                     {!this.props.isSignedIn && (
+                        
                         <Link to="/user/login" className="links">
                         <div
                             onClick={this.handleLoginClick}
+                            className= 'login-container'
                         >
                             Login
                         </div>
