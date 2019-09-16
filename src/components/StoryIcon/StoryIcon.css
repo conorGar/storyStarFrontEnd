@@ -5,7 +5,8 @@
     width: 200px;
     height: 200px;
     /* height: 100%; */
-    margin-top: 20px;
+    /* margin-top: 20px; */
+    margin: 0px 20px;
     -webkit-box-shadow: -7px 10px 15px -4px rgba(0,0,0,0.75);
     -moz-box-shadow: -7px 10px 15px -4px rgba(0,0,0,0.75);
     box-shadow: -7px 10px 15px -4px rgba(0,0,0,0.75);

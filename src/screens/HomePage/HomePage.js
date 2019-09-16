@@ -68,10 +68,14 @@ class HomePage extends React.Component{
         return(
             <div className="homepage-container">
                 <HomepageBanner />
-                <h1>Featured</h1>
+                <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet"></link>
 
                 <div className = 'featuredlist-container'>
-                {this.createIcons()}
+                <h1 className='title-text'>Featured</h1>
+                <h5 className='subtitle-text'>Latest stories from our top reviewers</h5>
+                <div className='icon-holder'>
+                  {this.createIcons()}
+                </div>
                 </div>
              
             </div>
