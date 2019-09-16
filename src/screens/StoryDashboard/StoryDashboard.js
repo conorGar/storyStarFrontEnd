@@ -3,6 +3,7 @@ import React from 'react'
 import './StoryDashboard.css'
 import { apiCall } from '../../services/apiService'
 import { Link } from 'react-router-dom'
+import { async } from 'q';
 
 
 class StoryDashboard extends React.Component{
@@ -14,7 +15,8 @@ class StoryDashboard extends React.Component{
             image: null,
             description: '',
             user: '',
-            chapters: []
+            chapters: [],
+            isSubscribed: false
 
         };
     }
@@ -25,11 +27,24 @@ class StoryDashboard extends React.Component{
             .getElementsByTagName("HTML")[0]
             .setAttribute("data-theme", localStorage.getItem("theme"));
         this.fetchStoryInfo()
+        this.fetchIsSubscribed()
 
     }
 
 
-     
+    fetchIsSubscribed = async () => {
+      let id = this.props.match.params.id
+
+      const response = await apiCall.get(`/story/subscription/${id}`)
+
+      if(response && response.length > 0){
+        this.setState({
+          isSubscribed: true
+        })
+      }
+
+    }
+
     fetchStoryInfo = async () => {
         let id = this.props.match.params.id
         const response = await apiCall.get(`/story/${id}`)
@@ -92,6 +107,29 @@ class StoryDashboard extends React.Component{
       }
 
 
+      subscribeHandler = async () => {
+
+        console.log('subscribe handler activate')
+        let id = this.props.match.params.id
+        const currentUserId = localStorage.getItem('userId')
+
+
+        if(this.state.isSubscribed){
+          //TODO: DELETE SUBSCRIPTION FROM DB
+          this.setState({
+            isSubscribed:false
+          })
+        }else{
+          this.setState({
+            isSubscribed:true
+          })
+          await apiCall.post(`user/subscription/${id}`,{currentUserId})
+
+        }
+
+      }
+
+
 
 
     render(){
@@ -110,7 +148,12 @@ class StoryDashboard extends React.Component{
                 <div className='story-info-banner'>
                   <h1 className='story-title'>{this.state.name}</h1>
                   <h4 className='story-description'>{description}</h4>
-                  <div className='subscribe-button'>SUBSCRIBE</div>
+                  {this.state.isSubscribed && (
+                    <div className='subscribe-button-subscribed' onClick={this.subscribeHandler}>SUBSCRIBED</div>
+                  )}
+                  {!this.state.isSubscribed && (
+                    <div className='subscribe-button' onClick={this.subscribeHandler}>SUBSCRIBE</div>
+                  )}
                 </div>
                   <Link
                       to={`/chapter/story/upload/${id}`}

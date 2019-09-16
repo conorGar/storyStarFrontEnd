@@ -13,7 +13,8 @@ class Dashboard extends React.Component{
         this.state = {
           stories: [],
           starRank: 'D',
-          star_points:0
+          star_points:0,
+          subscriptions: []
         }
       }
       componentDidMount() {
@@ -25,7 +26,7 @@ class Dashboard extends React.Component{
         const response = await apiCall.get(`/users/${localStorage.getItem('userId')}`)
         const {
           data: {
-            user: { name, username, email, stories, imgUrl, star_points }
+            user: { name, username, email, stories, imgUrl, star_points, subscriptions }
           }
         } = response
         this.setState({
@@ -34,7 +35,8 @@ class Dashboard extends React.Component{
           email,
           stories,
           imgUrl,
-          star_points
+          star_points,
+          subscriptions
         })
 
         this.determineStarRank()
@@ -69,6 +71,34 @@ class Dashboard extends React.Component{
       renderProjects = () => {
         const { stories } = this.state
         return stories.map(project => {
+          return (
+            <div key={project.id} className="user-project">
+              
+              <Link to={`/story/${project.id}`} className='links'>
+                <img
+                  src={project.imgUrl}
+                  alt="ProjPic"
+                  className="profile-project-pic"
+                />
+                <h3 className='story-name'>{project.name}</h3>
+                <h5 className='story-des'>{project.description}</h5>
+                <div className='project-header'>
+                
+              </div>
+
+              </Link>
+              <div className='button-container'>
+                  <Link to={`/story/update/${project.id}`}><button className='button'>Edit</button></Link>
+                  <button onClick={() => this.deleteProject(project.id)} className='button'>Delete</button>
+                </div>
+            </div>
+          )
+        })
+      }
+
+      renderSubscriptions = () => {
+        const { subscriptions } = this.state
+        return subscriptions.map(project => {
           return (
             <div key={project.id} className="user-project">
               
@@ -143,6 +173,10 @@ class Dashboard extends React.Component{
                     <h1 className='story-section-title'>Stories</h1>
                     <div className='story-list'>
                       {this.renderProjects()}
+                    </div>
+                    <h1 className='story-section-title'>Subscriptions</h1>
+                    <div className='story-list'>
+                      {this.renderSubscriptions()}
                     </div>
                     </div>
                 </div>
