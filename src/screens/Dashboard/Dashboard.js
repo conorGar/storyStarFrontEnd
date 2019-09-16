@@ -11,18 +11,21 @@ class Dashboard extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
-          stories: []
+          stories: [],
+          starRank: 'D',
+          star_points:0
         }
       }
       componentDidMount() {
         this.fetchUserInfo()
+        
       }
     
       fetchUserInfo = async () => {
         const response = await apiCall.get(`/users/${localStorage.getItem('userId')}`)
         const {
           data: {
-            user: { name, username, email, stories, imgUrl }
+            user: { name, username, email, stories, imgUrl, star_points }
           }
         } = response
         this.setState({
@@ -30,8 +33,32 @@ class Dashboard extends React.Component{
           username,
           email,
           stories,
-          imgUrl
+          imgUrl,
+          star_points
         })
+
+        this.determineStarRank()
+      }
+
+      determineStarRank = () =>{
+        const {star_points} = this.state;
+        let rank = 'D';
+        if(star_points >= 5 && star_points < 10){
+          rank = 'C'
+        }else if(star_points >= 10 && star_points < 20){
+          rank = 'B'
+        }else if(star_points >= 20 && star_points < 30){
+          rank = 'A'
+        }else if(star_points >= 30 && star_points < 55){
+          rank='A+'
+        }else if(star_points >= 45){
+          rank = 'S'
+        }
+
+        this.setState({
+          starRank: rank
+        })
+
       }
 
       deleteProject = async (id) => {
@@ -45,7 +72,7 @@ class Dashboard extends React.Component{
           return (
             <div key={project.id} className="user-project">
               
-              <Link to={`/story/${project.id}`}>
+              <Link to={`/story/${project.id}`} className='links'>
                 <img
                   src={project.imgUrl}
                   alt="ProjPic"
@@ -54,11 +81,14 @@ class Dashboard extends React.Component{
                 <h3 className='story-name'>{project.name}</h3>
                 <h5 className='story-des'>{project.description}</h5>
                 <div className='project-header'>
-                <Link to={`/story/update/${project.id}`}><button>Edit</button></Link>
-                <button onClick={() => this.deleteProject(project.id)}>Delete</button>
+                
               </div>
 
               </Link>
+              <div className='button-container'>
+                  <Link to={`/story/update/${project.id}`}><button className='button'>Edit</button></Link>
+                  <button onClick={() => this.deleteProject(project.id)} className='button'>Delete</button>
+                </div>
             </div>
           )
         })
@@ -70,31 +100,50 @@ class Dashboard extends React.Component{
 
         return(
             <div>
-                <h1>Dashboard</h1>
-                    <Link
-                    to={`/story/upload/user/${localStorage.getItem('userId')}`}
-                    className="links"
-                    >
-                    <div>+ New Story</div>
-                </Link>
+                <div className='dashboard-banner'>
+                  <h1></h1>
+                </div>
+                  
                 
                 <div className="pro-proj-container">
                     <div className="prof-header">
                     <div className='profile-container'>
+
                         <div className='profile-left'>
-                        <img className="profile-image" src={this.state.imgUrl} alt='profile-pic' />
+                          <img className="profile-image" src={this.state.imgUrl} alt='profile-pic' />
                         </div>
+
                         <div className='profile-right'>
-                          <h1 className="prof-name">{name}</h1>
-                          <h2 className="prof-username">{username}</h2>
-                          <h3 className="prof-email">{email}</h3>
-                          <Link to={`/users/edit/${this.props.match.params.id}`}>Edit Profile</Link>
+                          <div className='name-container'>
+                            <h2 className="prof-name">{name}</h2>
+                            <h2 className="prof-username">{username}</h2>
+                            {/* <h3 className="prof-email">{email}</h3> */}
+                            <Link to={`/users/edit/${this.props.match.params.id}`}>Edit Profile</Link>
+                          </div>
+                          <div class="vl"></div>
+                          <div className='star-rank-container'>
+                            <h2 className='star-rank-title'>Reviewer Rank:</h2>
+                            <h1 className='star-rank'>{this.state.starRank}</h1>
+                            <div className='star-count-container'>
+                              <div className='star-icon'></div>
+                              <h4 className='star-count'>{this.state.star_points}</h4>
+                            </div>
+                          </div>
                         </div>
                     </div>
-
+                   
                     </div>
                     <div className="user-project-list">
-                    {this.renderProjects()}
+                    <Link
+                    to={`/story/upload/user/${localStorage.getItem('userId')}`}
+                    className="links"
+                    >
+                      <div className='new-story-button'>+ New Story</div>
+                    </Link>
+                    <h1 className='story-section-title'>Stories</h1>
+                    <div className='story-list'>
+                      {this.renderProjects()}
+                    </div>
                     </div>
                 </div>
             </div>

@@ -18,7 +18,9 @@ class NavBar extends React.Component{
             <div className='navbar-container'>
                 <link href="https://fonts.googleapis.com/css?family=Roboto:700&display=swap" rel="stylesheet"></link>
                 <div className = 'left-navbar-container'>
-                    <img className='site-logo' src={SiteLogo} />
+                    <Link to='/'>
+                        <img className='site-logo' src={SiteLogo} />
+                    </Link>
                     <Link to='/latest'>
                     <div>Latest</div>
                     </Link>

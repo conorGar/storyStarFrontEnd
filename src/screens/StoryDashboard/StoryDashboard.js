@@ -100,20 +100,24 @@ class StoryDashboard extends React.Component{
         return(
             <div>
                 <div className='story-banner'>
-                  <h1 className='story-title'>{this.state.name}</h1>
                  
 
                   <div className='story-image-banner'>
-                  <img src={image} alt="ProjPic" className="story-pic" />
+                    <img src={image} alt="ProjPic" className="story-pic" />
                   </div>
+                 
+                </div>
+                <div className='story-info-banner'>
+                  <h1 className='story-title'>{this.state.name}</h1>
                   <h4 className='story-description'>{description}</h4>
+
+                </div>
                   <Link
                       to={`/chapter/story/upload/${id}`}
                       className="links"
                       >
-                  <div>Upload New Chapter</div>
+                  <div className="new-chapter-button">Upload New Chapter</div>
                   </Link>
-                </div>
                 <div className="story-chapter-list">
                     {this.renderChapters()}
                 </div>
