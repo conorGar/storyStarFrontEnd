@@ -1,0 +1,34 @@
+
+
+
+.homepage-banner-container{
+    background-color: rgb(255, 255, 255);
+    width: 100vw;
+    height: 60vh;
+    border-bottom-left-radius: 190px;
+    border-bottom-right-radius: 190px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-image: url("../../assets/homepage_banner_back.jpg");
+    background-size: 90% 60%;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    -webkit-box-shadow: inset -1px -33px 22px -3px rgba(0,0,0,0.75);
+-moz-box-shadow: inset -1px -33px 22px -3px rgba(0,0,0,0.75);
+box-shadow: inset -1px -33px 22px -3px rgba(0,0,0,0.75);
+/* z-index: -2; */
+}
+
+.starman-image{
+    /* display: inline; */
+    width: 300px;
+    height: 300px;
+    position: absolute;
+    top: 35%;
+    left:2%;
+    /* background-color: red; */
+    /* z-index: -1; */
+}

@@ -1,3 +1,5 @@
+import axios from 'axios'
+
 const BASE_URL = process.env.REACT_APP_HEROKU_URL  || `http://localhost:8001/`
 const JWT_TOKEN = localStorage.getItem('token')
 
@@ -10,6 +12,7 @@ export const apiCall = axios.create({
 
 export const login = async (data) => {
     try {
+        console.log(data)
         const response = await apiCall.post('/auth/login', data)
         const { data: { token, user } } = response
         localStorage.setItem('token', token)

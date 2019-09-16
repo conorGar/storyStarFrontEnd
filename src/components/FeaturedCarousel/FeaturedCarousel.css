@@ -1,0 +1,12 @@
+
+.legend{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.featured-carousel{
+    width:600px;
+    height: 350px;
+
+}

@@ -1,0 +1,98 @@
+
+
+.loginform-hide{
+    display: none;
+    position: fixed; /* Stay in place */
+
+    background-color: blue;
+}
+
+.loginform-show{
+    display: inline;
+    position: fixed; /* Stay in place */
+    left: 0;
+    top: 0;
+    margin: 10% 34%;
+    width: 300px;
+    height: 400px;
+
+    overflow: auto; /* Enable scroll if needed */
+    background-color: white;
+    -webkit-box-shadow: 0px 0px 26px -4px rgba(0,0,0,0.65);
+-moz-box-shadow: 0px 0px 26px -4px rgba(0,0,0,0.65);
+box-shadow: 0px 0px 26px -4px rgba(0,0,0,0.65);
+-webkit-animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
+  padding: 40px;
+}
+
+
+
+.close-button{
+    padding: 20px;
+    border-radius: 200px;
+    background-color: rgb(52, 54, 66);
+    font-size: 25px;
+    font-weight: 800;
+    color: rgb(183, 183, 183);
+    
+    position: absolute;
+    top:-20px;
+    left:82%;
+  }
+
+  .close-button:hover{
+    background-color: rgb(91, 89, 89);
+    cursor: pointer;
+  }
+
+
+  .login-button{
+    background: linear-gradient(141deg, #a0f1ff, #3f6b8a);
+    margin-top:50px;
+    padding: 20px;
+    transition: all .2s ease-in-out;
+  }
+
+  .login-button:hover{
+    transform: scale(1.1);
+  }
+
+  .signup-button{
+    background: linear-gradient(141deg, #c8cccc, #9fa1a3);
+    margin-top:10px;
+    padding: 10px 0px;
+    transition: all .2s ease-in-out;
+  }
+
+  .signup-button:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+
+  }
+
+
+  @-webkit-keyframes slide-in-top {
+    0% {
+      -webkit-transform: translateY(-1000px);
+              transform: translateY(-1000px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      opacity: 1;
+    }
+  }
+  @keyframes slide-in-top {
+    0% {
+      -webkit-transform: translateY(-1000px);
+              transform: translateY(-1000px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateY(0);
+              transform: translateY(0);
+      opacity: 1;
+    }
+  }
