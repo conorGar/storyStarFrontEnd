@@ -10,6 +10,7 @@ import SignUpForm from './screens/SignUpForm/SignUpForm'
 import LoginForm from './screens/LoginForm/LoginForm'
 import { login, signUp, getProfile } from './services/apiService'
 import NavBar from './components/NavBar/NavBar'
+import authService from './services/authService'
 
 import './App.css';
 import UploadChapter from './screens/UploadChapter/UploadChapter';
@@ -23,6 +24,21 @@ class App extends React.Component {
         showLoginForm: 'loginform-hide',
         showSignupForm: 'signup-hide'
       }
+  }
+
+
+  componentDidMount = async () => {
+    try {
+      const fetchUser = await getProfile()
+      this.setState(() => {
+        return {
+          isSignedIn: authService.isAuthenticated(),
+          user: fetchUser
+        }
+      })
+    } catch (error) {
+      throw error
+    }
   }
 
   loginUser = async credentials => {

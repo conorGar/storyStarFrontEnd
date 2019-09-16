@@ -150,7 +150,7 @@ class Dashboard extends React.Component{
                             {/* <h3 className="prof-email">{email}</h3> */}
                             <Link to={`/users/edit/${this.props.match.params.id}`}>Edit Profile</Link>
                           </div>
-                          <div class="vl"></div>
+                          <div className="vl"></div>
                           <div className='star-rank-container'>
                             <h2 className='star-rank-title'>Reviewer Rank:</h2>
                             <h1 className='star-rank'>{this.state.starRank}</h1>

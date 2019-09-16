@@ -18,9 +18,8 @@ class UploadStory extends React.Component {
         }
     }
     handleImageUpload = async (evt) => {
-        console.log(AwsConfig)
-        console.log(evt.target)
-        
+
+
         await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
             .then((data) => {
                 this.setState({

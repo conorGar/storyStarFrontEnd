@@ -12,6 +12,7 @@ export const apiCall = axios.create({
 
 export const login = async (data) => {
     try {
+        console.log(data)
         const response = await apiCall.post('/auth/login', data)
         const { data: { token, user } } = response
         localStorage.setItem('token', token)

@@ -33,11 +33,13 @@ class StoryDashboard extends React.Component{
 
 
     fetchIsSubscribed = async () => {
+      console.log("got here- fetchIsSubscribed")
       let id = this.props.match.params.id
 
-      const response = await apiCall.get(`/story/subscription/${id}`)
+      const response = await apiCall.get(`/users/${localStorage.getItem('userId')}`)
+      const responseSubs = response.data.user.subscriptions
 
-      if(response && response.length > 0){
+      if(responseSubs.includes(id)){
         this.setState({
           isSubscribed: true
         })
@@ -123,7 +125,7 @@ class StoryDashboard extends React.Component{
           this.setState({
             isSubscribed:true
           })
-          await apiCall.post(`user/subscription/${id}`,{currentUserId})
+          await apiCall.post(`users/subscription/${id}`,{currentUserId})
 
         }
 
