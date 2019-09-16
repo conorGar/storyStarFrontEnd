@@ -14,19 +14,6 @@ class LoginForm extends React.Component {
     }
   }
 
-  // loginUser = async data => {
-  //   try {
-  //     const response = await apiCall.post('/auth/login', data)
-  //     const {
-  //       data: { token }
-  //     } = response
-  //     await localStorage.setItem('token', token)
-  //     this.props.history.push('/')
-  //   } catch (error) {
-  //     throw error
-  //   }
-  // }
-
   handleSubmitForm = async evt => {
     evt.preventDefault()
     const { username, password } = this.state
@@ -72,21 +59,23 @@ class LoginForm extends React.Component {
         <div className={this.props.currentClass}>
           {' '}
           {/*  class changed to determine whether the login popup displays or not...*/}
-          <h2>Login</h2>
+          <h2 className='login-title'>Login</h2>
           {errMessage}
           <form className="form" onSubmit={this.handleSubmitForm}>
-            <div>
-              <label htmlFor="username">Username</label>
+            <div className='login-input-container'>
+              <label htmlFor="username">Username:  </label>
               <input
+                className='login-input'
                 type="text"
                 name="username"
                 onChange={this.handleTextInput}
                 defaultValue={this.state.username}
               />
             </div>
-            <div>
-              <label htmlFor="password">Password</label>
+            <div className='login-input-container'>
+              <label htmlFor="password">Password:  </label>
               <input
+                className= 'login-input'
                 type="password"
                 name="password"
                 onChange={this.handleTextInput}
