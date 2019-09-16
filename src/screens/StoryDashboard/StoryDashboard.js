@@ -110,7 +110,7 @@ class StoryDashboard extends React.Component{
                 <div className='story-info-banner'>
                   <h1 className='story-title'>{this.state.name}</h1>
                   <h4 className='story-description'>{description}</h4>
-
+                  <div className='subscribe-button'>SUBSCRIBE</div>
                 </div>
                   <Link
                       to={`/chapter/story/upload/${id}`}
