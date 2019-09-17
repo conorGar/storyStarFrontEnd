@@ -14,7 +14,7 @@
     top: 0;
     margin: 10% 34%;
     width: 300px;
-    height: 400px;
+    height: 330px;
 
     overflow: auto; /* Enable scroll if needed */
     background-color: white;
@@ -26,6 +26,29 @@ animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
   padding: 40px;
 }
 
+
+.login-title{
+  padding: 0px 10px;
+  text-decoration: none;
+    color: rgba(35, 44, 51, 0.61);
+    border-width: 0px;
+    border-bottom-width: 1px;
+    border-style: solid;
+    margin: 5px 5px;
+    font-size: 30px;
+    text-align: left;
+}
+
+.login-input-container{
+  margin: 30px 20px;
+}
+
+.login-input{
+  border-width: 0px;
+    border-bottom-width: 1px;
+    font-size: 15px;
+    border-color: black;
+}
 
 
 .close-button{
@@ -48,28 +71,45 @@ animation: slide-in-top 0.5s cubic-bezier(0.250, 0.460, 0.450, 0.940) both;
 
 
   .login-button{
-    background: linear-gradient(141deg, #a0f1ff, #3f6b8a);
+    background-color: #6A8EAE;
     margin-top:50px;
     padding: 20px;
     transition: all .2s ease-in-out;
+    border-radius: 100px;
+    font-size: 20px;
+    color: white;
+    padding: 10px 120px;
   }
 
   .login-button:hover{
     transform: scale(1.1);
+    background-color: rgba(106, 142, 174, 0.726);
+    cursor: pointer;
+
+
   }
 
   .signup-button{
-    background: linear-gradient(141deg, #c8cccc, #9fa1a3);
+    background: rgba(128, 128, 128, 0.747);
+    color: white;
     margin-top:10px;
+    margin: 10px 40px;
+    font-size: 15px;
+    border-radius: 200px;
+
     padding: 10px 0px;
     transition: all .2s ease-in-out;
   }
 
   .signup-button:hover{
+    background: rgba(128, 128, 128, 0.486);
+
     transform: scale(1.1);
     cursor: pointer;
 
   }
+
+
 
 
   @-webkit-keyframes slide-in-top {

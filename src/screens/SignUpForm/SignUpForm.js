@@ -73,7 +73,7 @@ class SignUpForm extends React.Component {
       <Fragment>
         <div className={this.props.currentClass}>
           <div className="signup-left-side">
-          <h2 className="copy-text">Give Your Projects the Spotlight They Deserve.</h2>
+          <h2 className="copy-text">Become The Writer You Want To Be.</h2>
           </div>
           <div className="signup-right-side" >
             <h2>Signup</h2>
@@ -140,18 +140,7 @@ class SignUpForm extends React.Component {
 
                 />
               </div>
-              <div>
-                <label htmlFor="linkedin" className='signup-label'>Linkedin</label>
-                <input
-                  required
-                  type="text"
-                  name="linkedin"
-                  onChange={this.handleTextInput}
-                  value={this.state.linkedin}
-                  className='signup-input'
-
-                />
-              </div>
+             
               <button className='signup-button-2'>Sign Up</button>
             </form>
             <div className="close-button2" onClick={this.props.toggleSignupPopup}>X</div>
