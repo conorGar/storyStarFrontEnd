@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom'
 
 
 import './Dashboard.css'
+import { async } from 'q';
 
 
 class Dashboard extends React.Component{
@@ -14,7 +15,8 @@ class Dashboard extends React.Component{
           stories: [],
           starRank: 'D',
           star_points:0,
-          subscriptions: []
+          subscriptions: [],
+          subscribedStories: []
         }
       }
       componentDidMount() {
@@ -40,6 +42,22 @@ class Dashboard extends React.Component{
         })
 
         this.determineStarRank()
+        this.fetchSubscriptionInfo()
+      }
+
+      fetchSubscriptionInfo = async () => {
+        await this.state.subscriptions.forEach(async(subscription) => {
+          const id = subscription.storyId
+          const data =await apiCall.get(`story/subscribed/${id}`)
+          await this.setState(prevState => ({
+            subscribedStories: [...prevState.subscribedStories, data]
+          }))
+          // await apiCall.get(`story/subscribed/${id}`)
+        })
+       
+        // await this.setState({
+        //   subscribedStories
+        // })
       }
 
       determineStarRank = () =>{
@@ -97,28 +115,30 @@ class Dashboard extends React.Component{
       }
 
       renderSubscriptions = () => {
-        const { subscriptions } = this.state
-        return subscriptions.map(project => {
+        const { subscribedStories } = this.state
+        console.log(subscribedStories)
+        console.log(subscribedStories.length)
+
+        return subscribedStories.map(project => {
+          console.log("GOT HERE- SUBSCRIPTION DISPLAY")
+          console.log(project)
           return (
             <div key={project.id} className="user-project">
               
               <Link to={`/story/${project.id}`} className='links'>
                 <img
-                  src={project.imgUrl}
+                  src={project.data.imgUrl}
                   alt="ProjPic"
                   className="profile-project-pic"
                 />
-                <h3 className='story-name'>{project.name}</h3>
-                <h5 className='story-des'>{project.description}</h5>
+                <h3 className='story-name'>{project.data.name}</h3>
+                <h5 className='story-des'>{project.data.description}</h5>
                 <div className='project-header'>
                 
               </div>
 
               </Link>
-              <div className='button-container'>
-                  <Link to={`/story/update/${project.id}`}><button className='button'>Edit</button></Link>
-                  <button onClick={() => this.deleteProject(project.id)} className='button'>Delete</button>
-                </div>
+              
             </div>
           )
         })
