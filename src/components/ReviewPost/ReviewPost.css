@@ -2,7 +2,6 @@
 
 .review-post-container{
     text-align: left;
-    /* background-color: rgb(241, 241, 241); */
     padding: 5px 20px;
     margin: 10px 50px;
     border-bottom-width: 1px;
@@ -20,16 +19,21 @@
 .star-icon{
     width:20px;
     height: 20px;
-    border-style: solid;
+    /* border-style: solid; */
     margin: 0 15px;
+    background-image: url('../../assets/star_icon.png');
+    background-size:contain;
+    background-color: white;
+
+
 }
 
 .star-icon-filled{
     width:20px;
     height: 20px;
-    border-style: solid;
     margin: 0 15px;
-    background-color: blue;
+    background-image: url('./../../assets/star_icon_filled.jpg');
+    background-size:contain;
 }
 
 .star-container{

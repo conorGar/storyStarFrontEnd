@@ -16,16 +16,43 @@ class UploadChapter extends React.Component {
         }
     }
     handlePagesUpload = async (evt) => {
-        
-      
-        for(let i = 0 ; i < evt.target.files.length; i++){
-            let value = evt.target.files[i].name
-            let file =evt.target.files[i]
+        const {filesToUpload} = this.state
+
+        const allFiles = evt.target.files
+        for(let i = 0 ; i < allFiles.length; i++){
+            let value = allFiles[i].name
+            let file =allFiles[i]
             this.setState(prevState => ({
-                contents: [...prevState.contents, value],
+                // contents: [...prevState.contents, value],
                 filesToUpload: [...prevState.filesToUpload,file]
             }))
+            await S3FileUpload.uploadFile(file, AwsConfig)
+            .then((data) => {
+                console.log(data.location)
+                this.setState(prevState => ({
+                    contents: [...prevState.contents, data.location],
+                }))
+                // console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
+            }).catch((err) => {
+                alert(err);
+            })
         }
+
+        // const files = allFiles
+        // console.log(files)
+        // await files.forEach(async (file) => {
+
+        //     await S3FileUpload.uploadFile(file, AwsConfig)
+        //     .then((data) => {
+        //         console.log(data.location)
+        //         this.setState(prevState => ({
+        //             contents: [...prevState.contents, data.location],
+        //         }))
+        //         // console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
+        //     }).catch((err) => {
+        //         alert(err);
+        //     })
+        // })
 
 
         // TODO: THIS WILL ONLY UPLOAD FIRST FILE TO AWS, NOT ALL OF THEM *****
@@ -52,26 +79,41 @@ class UploadChapter extends React.Component {
             console.log(filesToUpload);
             console.log(filesToUpload[0].name);
 
-            filesToUpload.forEach(async (file) => {
-                    await S3FileUpload.uploadFile(file, AwsConfig)
-                    .then((data) => {
-                       
-                        console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
-                    }).catch((err) => {
-                        alert(err);
-                    })
-            })
-              
-
-
+            // await filesToUpload.forEach(async (file) => {
+            //         await S3FileUpload.uploadFile(file, AwsConfig)
+            //         .then((data) => {
+            //             console.log(data.location)
+            //             this.setState(prevState => ({
+            //                 contents: [...prevState.contents, data.location],
+            //             }))
+            //             console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
+            //         }).catch((err) => {
+            //             alert(err);
+            //         })
+            // })
             await apiCall.post(`chapter/create/story/${id}`, { name, contents })
-            await this.props.history.push(`/story/${id}`)
+            await this.props.history.push('/')
+
+            
+              
+            console.log(contents)
+
+            console.log("GOT HERE")
 
 
         }
         catch (error) {
             throw error
         }
+        // }finally{
+        //     console.log("Finally runs")
+        //     await apiCall.post(`chapter/create/story/${id}`, { name, contents })
+
+        // }
+        // }finally{
+        //     await this.props.history.push(`/story/${id}`)
+
+        // }
     }
 
     handleTextInput = async (evt) => {
