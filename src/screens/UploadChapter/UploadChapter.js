@@ -11,27 +11,30 @@ class UploadChapter extends React.Component {
 
         this.state = {
             name: 'chapter2',
-            contents: []
+            contents: [],
+            filesToUpload: []
         }
     }
     handlePagesUpload = async (evt) => {
         
-
-   
-
+      
         for(let i = 0 ; i < evt.target.files.length; i++){
             let value = evt.target.files[i].name
+            let file =evt.target.files[i]
             this.setState(prevState => ({
-                contents: [...prevState.contents, value]
+                contents: [...prevState.contents, value],
+                filesToUpload: [...prevState.filesToUpload,file]
             }))
         }
 
 
         // TODO: THIS WILL ONLY UPLOAD FIRST FILE TO AWS, NOT ALL OF THEM *****
-
+        // console.log("HANDLE PAGES UPLOAD ACTIVATE")
         // console.log(this.state.contents);
         // await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
         //     .then((data) => {
+        //         console.log(data);
+
         //         this.setState({
         //             contents: data.contents
         //         })
@@ -42,13 +45,29 @@ class UploadChapter extends React.Component {
 
     handleProjectSubmit = async (e) => {
         e.preventDefault();
-        const { name, contents } = this.state
+        const { name, filesToUpload, contents } = this.state
         const id = this.props.match.params.id;
         console.log("Handle project submit activate")
         try {
-            console.log(name)
+            console.log(filesToUpload);
+            console.log(filesToUpload[0].name);
+
+            filesToUpload.forEach(async (file) => {
+                    await S3FileUpload.uploadFile(file, AwsConfig)
+                    .then((data) => {
+                       
+                        console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
+                    }).catch((err) => {
+                        alert(err);
+                    })
+            })
+              
+
+
             await apiCall.post(`chapter/create/story/${id}`, { name, contents })
-            await this.props.history.push('/dashboard')
+            await this.props.history.push(`/story/${id}`)
+
+
         }
         catch (error) {
             throw error
@@ -65,7 +84,7 @@ class UploadChapter extends React.Component {
     render() {
         return (
             <div className="upload-project-container">
-                <h1>Upload New Chapter</h1>
+                <h1>Upload New Chapter 2</h1>
                 <div className="form-container">
                     <form className="project-submit-form" onSubmit={this.handleProjectSubmit}>
                         <div className="upload-image-container">
