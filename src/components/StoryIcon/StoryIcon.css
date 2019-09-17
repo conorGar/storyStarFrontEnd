@@ -45,6 +45,12 @@
     color: rgb(51, 42, 14);
     font-size: 15px;
 }
+.story-desc{
+    font-size: 10px;
+    margin: 5px 5px;
+    color: rgba(0, 0, 0, 0.5);
+    text-align: left;
+}
 
 .bottom-part{
     width: 100%;
@@ -53,3 +59,4 @@
     margin: 15px 0px;
 
 }
+

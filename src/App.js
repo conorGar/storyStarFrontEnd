@@ -68,6 +68,16 @@ class App extends React.Component {
     }
   }
 
+  signOutUser = async () => {
+    authService.signOut()
+    await this.setState(state => {
+      return {
+        isSignedIn: false,
+        user: {}
+      }
+    })
+  }
+
 
   updateLoginPopup = () => {
     if (this.state.showLoginForm === 'loginform-hide') {

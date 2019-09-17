@@ -161,7 +161,7 @@ class StoryDashboard extends React.Component{
                       to={`/chapter/story/upload/${id}`}
                       className="links"
                       >
-                  <div className="new-chapter-button">Upload New Chapter</div>
+                  <div className="new-chapter-button">+ Upload New Chapter</div>
                   </Link>
                 <div className="story-chapter-list">
                     {this.renderChapters()}
