@@ -4,6 +4,7 @@ import S3FileUpload from 'react-s3';
 import { AwsConfig } from '../../services/AwsConfig'
 
 import './UploadStory.css'
+import { async } from 'q';
 
 class UploadStory extends React.Component {
     constructor(props) {
@@ -14,7 +15,8 @@ class UploadStory extends React.Component {
             name: '',
             description: '',
             imgUrl: '',
-            username: ''
+            username: '',
+            iconImgUrl: ''
         }
     }
     handleImageUpload = async (evt) => {
@@ -31,13 +33,26 @@ class UploadStory extends React.Component {
             })
     }
 
+    handleIconImageUpload = async (evt) =>{
+        console.log("Icon image upoad activate")
+
+        await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
+        .then((data) => {
+            this.setState({
+                iconImgUrl: data.location
+            })
+        }).catch((err) => {
+            alert(err);
+        })
+    }
+
     handleProjectSubmit = async (e) => {
         e.preventDefault();
-        const { name, description, username, imgUrl } = this.state
+        const { name, description, username, imgUrl, iconImgUrl } = this.state
         const id = this.props.match.params.id;
         console.log("Handle project submit activate")
         try {
-            await apiCall.post(`story/create/user/${id}`, { name, description, imgUrl, username })
+            await apiCall.post(`story/create/user/${id}`, { name, description, imgUrl, username, iconImgUrl })
             await this.props.history.push('/')
         }
         catch (error) {
@@ -64,6 +79,14 @@ class UploadStory extends React.Component {
                                 name="uploadedImage"
                                 type="file"
                                 onChange={this.handleImageUpload}
+                            />
+                        </div>
+                        <div className="upload-image-container">
+                            <h2>Story Icon Here</h2>
+                            <input
+                                name="uploadedImage"
+                                type="file"
+                                onChange={this.handleIconImageUpload}
                             />
                         </div>
                         <div className="text-info-container">

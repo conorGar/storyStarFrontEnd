@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-const BASE_URL ='https://glacial-mountain-76023.herokuapp.com/' //process.env.REACT_APP_HEROKU_URL  //|| `http://localhost:8001/`
+const BASE_URL = `http://localhost:8001/`    //'https://glacial-mountain-76023.herokuapp.com/' //process.env.REACT_APP_HEROKU_URL  //|| `http://localhost:8001/`
 const JWT_TOKEN = localStorage.getItem('token')
 
 console.log("GOT HERE")

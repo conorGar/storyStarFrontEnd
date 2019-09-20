@@ -90,9 +90,9 @@ class StoryDashboard extends React.Component{
               <div className="chapter-row-left">
                 <Link to={`/chapter/story/${chapter.id}`} className='chapter-link'>
                 <img
-                  src={chapter.imgUrl}
+                  src={chapter.iconImgUrl}
                   alt="ProjPic"
-                  className="profile-chapter-pic"
+                  className="chapter-icon-pic"
                 />
                  <h3 className="chapter-name">{chapter.name}</h3>
               </Link>

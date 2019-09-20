@@ -45,7 +45,10 @@ class PostReview extends React.Component{
       render(){
           return(
               <div className={this.props.currentClass}>
+
                 <form className="review-submit-form" onSubmit={this.handleSubmitForm}>
+                  <div className='text-area'>
+                    <h3>Review:</h3>
                     <textarea
                         type='text'
                         name='reviewText'
@@ -53,7 +56,8 @@ class PostReview extends React.Component{
                         onChange={this.handleTextInput}
                         value={this.state.reviewText}
                     />
-                    <button className="submit-button">Post</button>
+                    </div>
+                    <button className="submit-review-button">Post</button>
 
                 </form>
               </div>

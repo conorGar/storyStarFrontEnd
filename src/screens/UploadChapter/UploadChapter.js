@@ -12,7 +12,9 @@ class UploadChapter extends React.Component {
         this.state = {
             name: 'chapter2',
             contents: [],
-            filesToUpload: []
+            filesToUpload: [],
+            iconImgUrl: ''
+
         }
     }
     handlePagesUpload = async (evt) => {
@@ -38,60 +40,35 @@ class UploadChapter extends React.Component {
             })
         }
 
-        // const files = allFiles
-        // console.log(files)
-        // await files.forEach(async (file) => {
+        
 
-        //     await S3FileUpload.uploadFile(file, AwsConfig)
-        //     .then((data) => {
-        //         console.log(data.location)
-        //         this.setState(prevState => ({
-        //             contents: [...prevState.contents, data.location],
-        //         }))
-        //         // console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
-        //     }).catch((err) => {
-        //         alert(err);
-        //     })
-        // })
+    
+    }
 
+    handleIconImageUpload = async (evt) =>{
+        console.log("Icon image upoad activate")
 
-        // TODO: THIS WILL ONLY UPLOAD FIRST FILE TO AWS, NOT ALL OF THEM *****
-        // console.log("HANDLE PAGES UPLOAD ACTIVATE")
-        // console.log(this.state.contents);
-        // await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
-        //     .then((data) => {
-        //         console.log(data);
-
-        //         this.setState({
-        //             contents: data.contents
-        //         })
-        //     }).catch((err) => {
-        //         alert(err);
-        //     })
+        await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
+        .then((data) => {
+            this.setState({
+                iconImgUrl: data.location
+            })
+        }).catch((err) => {
+            alert(err);
+        })
     }
 
     handleProjectSubmit = async (e) => {
         e.preventDefault();
-        const { name, filesToUpload, contents } = this.state
+        const { name, filesToUpload, contents, iconImgUrl } = this.state
         const id = this.props.match.params.id;
         console.log("Handle project submit activate")
         try {
             console.log(filesToUpload);
             console.log(filesToUpload[0].name);
 
-            // await filesToUpload.forEach(async (file) => {
-            //         await S3FileUpload.uploadFile(file, AwsConfig)
-            //         .then((data) => {
-            //             console.log(data.location)
-            //             this.setState(prevState => ({
-            //                 contents: [...prevState.contents, data.location],
-            //             }))
-            //             console.log("uploaded file to AWS BUCKET" + filesToUpload[0])
-            //         }).catch((err) => {
-            //             alert(err);
-            //         })
-            // })
-            await apiCall.post(`chapter/create/story/${id}`, { name, contents })
+         
+            await apiCall.post(`chapter/create/story/${id}`, { name, contents, iconImgUrl })
             await this.props.history.push('/')
 
             
@@ -129,6 +106,15 @@ class UploadChapter extends React.Component {
                 <h1>Upload New Chapter 2</h1>
                 <div className="form-container">
                     <form className="project-submit-form" onSubmit={this.handleProjectSubmit}>
+                         <div className="upload-image-container">
+                            <h2>Story Icon Here</h2>
+                            <h5 className='subtitle-text'>Recommended size: 64x64</h5>
+                            <input
+                                name="uploadedImage"
+                                type="file"
+                                onChange={this.handleIconImageUpload}
+                            />
+                        </div>
                         <div className="upload-image-container">
                             <h2>Upload Pages Here</h2>
                             <h5>JPEG,PNG,GIF supported</h5>

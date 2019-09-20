@@ -53,7 +53,7 @@ class HomePage extends React.Component{
             <StoryIcon
                 key={project.id}
                 title={project.name}
-                image={project.imgUrl}
+                image={project.iconImgUrl}
                 link={`/story/${project.id}`}
                 description={project.description}
 
