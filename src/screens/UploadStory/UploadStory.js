@@ -2,6 +2,7 @@ import React from 'react'
 import { apiCall } from '../../services/apiService'
 import S3FileUpload from 'react-s3';
 import { AwsConfig } from '../../services/AwsConfig'
+import Dropzone from 'react-dropzone'
 
 import './UploadStory.css'
 import { async } from 'q';
@@ -22,7 +23,7 @@ class UploadStory extends React.Component {
     handleImageUpload = async (evt) => {
 
 
-        await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
+        await S3FileUpload.uploadFile(evt[0], AwsConfig)
             .then((data) => {
                 this.setState({
                     imgUrl: data.location
@@ -33,17 +34,17 @@ class UploadStory extends React.Component {
             })
     }
 
-    handleIconImageUpload = async (evt) =>{
+    handleIconImageUpload = async (evt) => {
         console.log("Icon image upoad activate")
 
-        await S3FileUpload.uploadFile(evt.target.files[0], AwsConfig)
-        .then((data) => {
-            this.setState({
-                iconImgUrl: data.location
+        await S3FileUpload.uploadFile(evt[0], AwsConfig)
+            .then((data) => {
+                this.setState({
+                    iconImgUrl: data.location
+                })
+            }).catch((err) => {
+                alert(err);
             })
-        }).catch((err) => {
-            alert(err);
-        })
     }
 
     handleProjectSubmit = async (e) => {
@@ -73,22 +74,37 @@ class UploadStory extends React.Component {
                 <h1>Upload New Story</h1>
                 <div className="form-container">
                     <form className="project-submit-form" onSubmit={this.handleProjectSubmit}>
-                        <div className="upload-image-container">
+                        {/* <div className="upload-image-container">
                             <h2>Drag Image Here</h2>
                             <input
                                 name="uploadedImage"
                                 type="file"
                                 onChange={this.handleImageUpload}
                             />
-                        </div>
-                        <div className="upload-image-container">
+                        </div> */}
+
+                        <Dropzone onDrop={this.handleImageUpload} >
+                            {({ getRootProps, getInputProps }) => (
+                                <section className='dropzone-section'>
+                                    <h2>Story Banner Image:</h2>
+                                    <h5 className='subtitle'> Recommended Size: ... </h5>
+                                    <div {...getRootProps()} className='banner-drop-zone'>
+                                        <input {...getInputProps()} />
+                                        <p>Drag 'n' drop file here, or click to select file</p>
+                                    </div>
+                                </section>
+                            )}
+                        </Dropzone>
+                        {/* <div className="upload-image-container">
                             <h2>Story Icon Here</h2>
                             <input
                                 name="uploadedImage"
                                 type="file"
                                 onChange={this.handleIconImageUpload}
                             />
-                        </div>
+                        </div> */}
+
+
                         <div className="text-info-container">
                             <div className="input-title-container">
                                 <h2>Story Title:</h2>
@@ -100,6 +116,18 @@ class UploadStory extends React.Component {
                                     value={this.state.name}
                                 />
                             </div>
+                            <Dropzone onDrop={this.handleIconImageUpload} >
+                                {({ getRootProps, getInputProps }) => (
+                                    <section className='dropzone-section'>
+                                        <h2>Story Icon:</h2>
+                                        <h5 className='subtitle'> Recommended Size: 200x200 </h5>
+                                        <div {...getRootProps()} className='icon-drop-zone'>
+                                            <input {...getInputProps()} />
+                                            <p>Drag 'n' drop file here, or click to select file</p>
+                                        </div>
+                                    </section>
+                                )}
+                            </Dropzone>
                             <div className="input-description-container">
                                 <h2>Description:</h2>
                                 <textarea
@@ -110,8 +138,8 @@ class UploadStory extends React.Component {
                                     value={this.state.description}
                                 />
                             </div>
-                        
-                        
+
+
                         </div>
                         <button className="submit-button">Submit</button>
                     </form>

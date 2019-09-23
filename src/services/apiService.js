@@ -28,6 +28,7 @@ export const login = async (data) => {
 }
 
 export const signUp = async (data) => {
+    console.log(data)
     try {
         await apiCall.post('/auth/signup', data)
     }

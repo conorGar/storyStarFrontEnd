@@ -123,6 +123,8 @@ class UploadChapter extends React.Component {
                                 {({ getRootProps, getInputProps }) => (
                                     <section className='dropzone-section'>
                                         <h2>Chapter Icon:</h2>
+                                        <h5 className='subtitle'>Recommended Size: 64x64</h5>
+
                                         <div {...getRootProps()} className='icon-drop-zone'>
                                             <input {...getInputProps()} />
                                             <p>Drag 'n' drop file here, or click to select file</p>

@@ -26,7 +26,24 @@ class ReviewPost extends React.Component{
         let id = this.props.reviewID
 
         const totalStarCount = await apiCall.get(`review/${id}`);
-     
+        console.log(totalStarCount.data)
+
+        const data = totalStarCount.data;
+        const currentUserId = parseInt(localStorage.getItem('userId'))
+
+        //If star has already been filled by current user, cannot fill it again
+        data.forEach(element => {
+            console.log(element.userId)
+            console.log(currentUserId)
+            if(element.userId === currentUserId){
+                console.log("Found Star related to current user")
+                this.setState({
+                    starFilled: true
+                })
+              
+            }
+        });
+
         await this.setState({
             totalStars: totalStarCount.data.length
         })

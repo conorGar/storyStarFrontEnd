@@ -10,6 +10,7 @@ class SignUpForm extends React.Component {
     super(props)
     this.state = {
       showError: false,
+      star_points: 0,
       imgUrl: ''
     }
   }
@@ -17,11 +18,11 @@ class SignUpForm extends React.Component {
   handleSubmitForm = async evt => {
     evt.preventDefault()
 
-    const { name, username, password, email, linkedin, imgUrl } = this.state
+    const { name, username, password, email, star_points, imgUrl } = this.state
     const { handleSignUp } = this.props
 
     try {
-      await handleSignUp({ name, username, password, email, linkedin, imgUrl })
+      await handleSignUp({ name, username, password, email, star_points, imgUrl })
       // await this.props.history.push('/')
       this.props.toggleSignupPopup()
 
