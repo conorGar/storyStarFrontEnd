@@ -75,6 +75,8 @@ class ChapterPage extends React.Component{
       handleReviewButton = (e) => {
           if(this.state.postReviewClass === 'review-post-form'){
             this.setState({postReviewClass:'review-post-hide'})
+            this.fetchChapterReviews()
+
           }else{
             this.setState({postReviewClass:'review-post-form'})
           }

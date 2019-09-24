@@ -33,7 +33,7 @@ class PostReview extends React.Component{
           await apiCall.post(`/chapter/create/${id}/review`, {reviewText,currentUserId})
 
           this.props.buttonHandle()
-    
+
         } catch (error) {
           this.setState(() => {
             return { showError: true }
