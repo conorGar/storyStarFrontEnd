@@ -16,7 +16,8 @@ class StoryDashboard extends React.Component{
             description: '',
             user: '',
             chapters: [],
-            isSubscribed: false
+            isSubscribed: false,
+            totalSubs: 0
 
         };
     }
@@ -28,13 +29,13 @@ class StoryDashboard extends React.Component{
             .setAttribute("data-theme", localStorage.getItem("theme"));
         this.fetchStoryInfo()
         this.fetchIsSubscribed()
+        this.fetchTotalSubs()
 
     }
 
 
     fetchIsSubscribed = async () => {
       console.log("got here- fetchIsSubscribed")
-      let id = this.props.match.params.id
 
       const response = await apiCall.get(`/users/${localStorage.getItem('userId')}`)
       const responseSubs = response.data.user.subscriptions
@@ -54,6 +55,17 @@ class StoryDashboard extends React.Component{
       });
 
    
+
+    }
+
+    fetchTotalSubs = async () =>{
+      let id = this.props.match.params.id
+
+      const totalSubs = await apiCall.get(`/story/subscriptions/${id}`)
+      console.log(totalSubs)
+      this.setState({
+        totalSubs:totalSubs.data.length
+      })
 
     }
 
@@ -125,15 +137,17 @@ class StoryDashboard extends React.Component{
         let id = this.props.match.params.id
         const currentUserId = localStorage.getItem('userId')
 
-
+        let currentTotalSubs = this.state.totalSubs
         if(this.state.isSubscribed){
-          //TODO: DELETE SUBSCRIPTION FROM DB
+          await apiCall.delete(`users/subscription/${id}/${currentUserId}`)
           this.setState({
-            isSubscribed:false
+            isSubscribed:false,
+            totalSubs: currentTotalSubs-1
           })
         }else{
           this.setState({
-            isSubscribed:true
+            isSubscribed:true,
+            totalSubs: currentTotalSubs+1
           })
           await apiCall.post(`users/subscription/${id}`,{currentUserId})
 
@@ -161,10 +175,10 @@ class StoryDashboard extends React.Component{
                   <h1 className='story-title'>{this.state.name}</h1>
                   <h4 className='story-description'>{description}</h4>
                   {this.state.isSubscribed && (
-                    <div className='subscribe-button-subscribed' onClick={this.subscribeHandler}>SUBSCRIBED</div>
+                    <div className='subscribe-button-subscribed' onClick={this.subscribeHandler}><h4>SUBSCRIBED</h4><h5 className='sub-count-text'>{this.state.totalSubs}</h5></div>
                   )}
                   {!this.state.isSubscribed && (
-                    <div className='subscribe-button' onClick={this.subscribeHandler}>SUBSCRIBE</div>
+                    <div className='subscribe-button' onClick={this.subscribeHandler}><h4>SUBSCRIBE</h4><h5 className='sub-count-text'>{this.state.totalSubs}</h5></div>
                   )}
                 </div>
                   <Link
