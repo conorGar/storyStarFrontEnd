@@ -39,11 +39,21 @@ class StoryDashboard extends React.Component{
       const response = await apiCall.get(`/users/${localStorage.getItem('userId')}`)
       const responseSubs = response.data.user.subscriptions
 
-      if(responseSubs.includes(id)){
-        this.setState({
-          isSubscribed: true
-        })
-      }
+      console.log(responseSubs)
+
+      //need to change to integer to compare properly below
+      const playerId = parseInt(localStorage.getItem('userId'));
+      responseSubs.forEach(element => {
+        console.log(element.id)
+        console.log(playerId)
+        if(element.userId === playerId){
+          this.setState({
+            isSubscribed: true
+          })
+        }
+      });
+
+   
 
     }
 
